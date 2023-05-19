@@ -1,0 +1,20 @@
+.gradient-text {
+    background: linear-gradient(135deg, #fa00ff, #00e0ff 50%, #fa00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 500%;
+}
+
+.hover\:animate-gradient:hover {
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
