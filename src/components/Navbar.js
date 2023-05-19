@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../asssets/Unsplash.svg";
 
 const Navbar = () => {
+  const [activeLink, setactiveLink] = useState(-1);
   const links = [
     {
       name: "Greener Cities",
@@ -69,7 +70,7 @@ const Navbar = () => {
     },
   ];
   return (
-    <div className="sticky top-0 bg-white shadow">
+    <div className="sticky top-0 bg-white shadow z-10">
       <div className="py-3 px-5 flex items-center w-full justify-between text-sm whitespace-nowrap ">
         <div className="flex w-full">
           <img src={Logo} alt="" height="32px" width="32px" />
@@ -152,17 +153,25 @@ const Navbar = () => {
       {/* Links */}
       <div className="bg-white w-full h-14 flex items-center justify-between px-5 text-sm">
         <div className="flex items-center w-full ">
-          <a href="#" className="text-black hover:text-gray-800 font-semibold">
+          <a
+            href="#"
+            className={`text-black hover:text-gray-800 font-semibold ${
+              activeLink == -1 ? "active-link" : ""
+            }`}
+          >
             Editorial
           </a>
           <div className="divider h-8 bg-gray-300 w-0.5 mx-4"></div>
-          <div className="overflow-x-auto whitespace-nowrap scrollbar-hidden">
+          <div className="overflow-x-auto py-10 overflow-y-visible whitespace-nowrap scrollbar-hidden">
             {links.map((e, index) => {
               return (
                 <a
                   key={index}
                   href={e.url}
-                  className="text-gray-500 hover:text-gray-800 font-semibold mr-4"
+                  onClick={() => setactiveLink(index)}
+                  className={`text-gray-500 hover:text-gray-800 font-medium mr-7 ${
+                    activeLink == index ? "active-link" : ""
+                  }`}
                 >
                   {e.name}
                 </a>

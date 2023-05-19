@@ -16,7 +16,7 @@ const Hero = () => {
             <input
               type="text"
               placeholder=" &#x1F50D;  Search high-resolution images"
-              className="search-input w-full px-4 py-2 rounded h-12 focus:outline-none text-black"
+              className="search-input w-full px-4 py-6 rounded h-12 focus:outline-none text-black"
             />
           </div>
 
