@@ -46,6 +46,7 @@
     background-repeat: no-repeat;
     position: relative;
     width: 100%;
+    min-height: 200px;
 }
 
 .bg-overlay {
@@ -70,6 +71,20 @@
 }
 
 /* Hero Ends */
+
+/* Gallery Starts */
+
+.image-card-overlay {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.30) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.30) 100%);
+}
+
+.image-card:hover .image-card-overlay {
+    display: flex;
+    cursor: zoom-in;
+}
+
+/* Gallery Ends */
 
 @keyframes gradient {
     0% {
