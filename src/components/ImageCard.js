@@ -56,7 +56,7 @@ const ImageCard = ({ data }) => {
                 title="Open in new tab"
                 onClick={handleOpenClick}
               >
-                <i class="fa-solid fa-arrow-up-right-from-square  text-gray-500"></i>
+                <i className="fa-solid fa-arrow-up-right-from-square  text-gray-500"></i>
               </button>
             </div>
           </div>

@@ -32,7 +32,6 @@ function App() {
           `https://api.unsplash.com/search/photos?query=${encodedQuery}&client_id=${API_KEY}&page=${page}`
         );
         res = data.results;
-        console.log(data);
       } else {
         const { data } = await axios.get(
           `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30&page=${page}`
