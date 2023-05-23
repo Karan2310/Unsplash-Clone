@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 
-const Hero = () => {
+const Hero = ({ setSearchQuery }) => {
   const inputRef = useRef(null);
   const handleButtonClick = (e) => {
     e.preventDefault();
-    const inputValue = inputRef.current.value;
-    console.log(inputValue);
+    setSearchQuery(inputRef.current.value);
     inputRef.current.value = "";
   };
   return (

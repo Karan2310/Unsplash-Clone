@@ -14,40 +14,54 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [infinitePage, setInfinitePage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [totalData, setTotalData] = useState(0);
   const pageSize = 30;
 
   let startIndex = (currentPage - 1) * pageSize;
   let endIndex = startIndex + pageSize;
-  let totalData = totalPages * pageSize;
 
   const galleryRef = useRef(null);
 
   const getAllImages = async (page) => {
     setIsLoading(true);
+    let res = [];
     try {
-      const { data } = await axios.get(
-        `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30&page=${page}`
-      );
-      if (page === 1) {
-        setImages(data);
+      if (searchQuery) {
+        const encodedQuery = encodeURIComponent(searchQuery);
+        const { data } = await axios.get(
+          `https://api.unsplash.com/search/photos?query=${encodedQuery}&client_id=${API_KEY}&page=${page}`
+        );
+        res = data.results;
+        console.log(data);
+        setTotalData(data.total);
       } else {
-        setImages((prevImages) => [...prevImages, ...data]);
+        const { data } = await axios.get(
+          `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30&page=${page}`
+        );
+        res = data;
       }
-      setTotalPages(Math.ceil(data.length / pageSize));
+
+      if (page === 1 || !isMobile) {
+        setImages(res);
+      } else {
+        setImages((prevImages) => [...prevImages, ...res]);
+      }
+
+      setTotalPages(Math.ceil(res.length / pageSize));
       startIndex = (currentPage - 1) * pageSize;
       endIndex = startIndex + pageSize;
-      console.log("Clicked");
-      console.log(data);
     } catch (err) {
       console.log(err);
-      alert(`${err.response.data} - Error from unsplash API`);
+      alert(`${err.response.data} - Error from Unsplash API`);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
     getAllImages(currentPage);
-  }, [currentPage]);
+    setTotalData(totalPages * pageSize);
+  }, [currentPage, searchQuery]);
 
   const goToPage = (page) => {
     setCurrentPage(page);
@@ -99,8 +113,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      <Hero />
+      <Navbar setSearchQuery={setSearchQuery} />
+      <Hero setSearchQuery={setSearchQuery} />
       <div ref={galleryRef}>
         <Gallery images={images} />
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Logo from "../asssets/Unsplash.svg";
 
-const Navbar = () => {
+const Navbar = ({ setSearchQuery }) => {
   const inputRef = useRef(null);
   const [activeLink, setactiveLink] = useState(-1);
   const links = [
@@ -70,11 +70,9 @@ const Navbar = () => {
       url: "#",
     },
   ];
-  let searchValue;
   const handleButtonClick = (e) => {
     e.preventDefault();
-    searchValue = inputRef.current.value;
-    console.log(searchValue);
+    setSearchQuery(inputRef.current.value);
     inputRef.current.value = "";
   };
   return (
@@ -179,8 +177,7 @@ const Navbar = () => {
                   href={e.url}
                   onClick={() => {
                     setactiveLink(index);
-                    searchValue = e.name;
-                    console.log(searchValue);
+                    setSearchQuery(e.name);
                   }}
                   className={`text-gray-500 hover:text-gray-800 font-medium mr-7 ${
                     activeLink == index ? "active-link" : ""
