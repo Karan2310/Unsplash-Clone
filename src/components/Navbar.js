@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Logo from "../asssets/Unsplash.svg";
 
 const Navbar = () => {
+  const inputRef = useRef(null);
   const [activeLink, setactiveLink] = useState(-1);
   const links = [
     {
@@ -69,12 +70,19 @@ const Navbar = () => {
       url: "#",
     },
   ];
+  let searchValue;
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    searchValue = inputRef.current.value;
+    console.log(searchValue);
+    inputRef.current.value = "";
+  };
   return (
     <div className="sticky top-0 bg-white shadow z-10">
       <div className="py-3 px-5 flex items-center w-full justify-between text-sm whitespace-nowrap ">
         <div className="flex w-full">
           <img src={Logo} alt="" height="32px" width="32px" />
-          <form className="w-full ml-4">
+          <form className="w-full ml-4" onSubmit={handleButtonClick}>
             <label
               htmlFor="default-search"
               className="mb-2 text-sm font-semibold text-gray-900 sr-only dark:text-white"
@@ -104,6 +112,7 @@ const Navbar = () => {
                 className="block w-full bg-gray-100 ring-1 ring-gray-100 hover:ring-gray-300 rounded-full px-4 py-2.5  focus:outline-none text-sm focus:bg-white text-gray-600 placeholder:text-gray-500 pl-10"
                 placeholder="Search high-resolution images"
                 required
+                ref={inputRef}
               />
             </div>
           </form>
@@ -168,7 +177,11 @@ const Navbar = () => {
                 <a
                   key={index}
                   href={e.url}
-                  onClick={() => setactiveLink(index)}
+                  onClick={() => {
+                    setactiveLink(index);
+                    searchValue = e.name;
+                    console.log(searchValue);
+                  }}
                   className={`text-gray-500 hover:text-gray-800 font-medium mr-7 ${
                     activeLink == index ? "active-link" : ""
                   }`}

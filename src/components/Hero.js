@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const Hero = () => {
+  const inputRef = useRef(null);
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    const inputValue = inputRef.current.value;
+    console.log(inputValue);
+    inputRef.current.value = "";
+  };
   return (
     <div className="hero relative flex items-center justify-center">
       <div className="bg-overlay"></div>
@@ -13,11 +20,14 @@ const Hero = () => {
 
         <div className="hidden md:block">
           <div className="search">
-            <input
-              type="text"
-              placeholder=" &#x1F50D;  Search high-resolution images"
-              className="search-input w-full px-4 py-6 rounded h-12 focus:outline-none text-black"
-            />
+            <form onSubmit={handleButtonClick}>
+              <input
+                type="text"
+                placeholder=" &#x1F50D;  Search high-resolution images"
+                className="search-input w-full px-4 py-6 rounded h-12 focus:outline-none text-black"
+                ref={inputRef}
+              />
+            </form>
           </div>
 
           <p className="mt-4">

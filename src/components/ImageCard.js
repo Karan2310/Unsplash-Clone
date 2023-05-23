@@ -44,7 +44,10 @@ const ImageCard = ({ data }) => {
                   src={data.user.profile_image.small}
                   alt="Rounded avatar"
                 />
-                <p className="whitespace-nowrap overflow-hidden overflow-ellipsis w-10/12 text-sm ml-3 text-white">
+                <p
+                  className="whitespace-nowrap overflow-hidden overflow-ellipsis w-10/12 text-sm ml-3 text-white"
+                  title={data.alt_description}
+                >
                   {data.alt_description}
                 </p>
               </div>
