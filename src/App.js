@@ -15,7 +15,6 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [infinitePage, setInfinitePage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [totalData, setTotalData] = useState(0);
   const pageSize = 30;
 
   let startIndex = (currentPage - 1) * pageSize;
@@ -34,7 +33,6 @@ function App() {
         );
         res = data.results;
         console.log(data);
-        setTotalData(data.total);
       } else {
         const { data } = await axios.get(
           `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30&page=${page}`
@@ -60,7 +58,6 @@ function App() {
 
   useEffect(() => {
     getAllImages(currentPage);
-    setTotalData(totalPages * pageSize);
   }, [currentPage, searchQuery]);
 
   const goToPage = (page) => {
@@ -124,17 +121,6 @@ function App() {
       {/* <Pagination /> */}
       {!isMobile && (
         <div className="flex flex-col items-center mb-10">
-          <span className="text-sm text-gray-700 ">
-            Showing{" "}
-            <span className="font-semibold text-gray-900 ">{startIndex}</span>{" "}
-            to <span className="font-semibold text-gray-900 ">{endIndex}</span>{" "}
-            of{" "}
-            <span className="font-semibold text-gray-900 ">
-              {totalData * currentPage}
-            </span>{" "}
-            Entries
-          </span>
-
           <div className="inline-flex mt-2 xs:mt-0">
             <button
               className="px-10 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700  disabled:opacity-80 disabled:cursor-not-allowed"
